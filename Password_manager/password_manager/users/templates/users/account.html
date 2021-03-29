@@ -1,0 +1,63 @@
+{%extends "main/home.html"%}
+{% load static %}
+{% block title %}
+<title>Profile: {{user}}</title>
+{% endblock title %}
+{%block content%}
+    {% for message in messages %}
+        <div class="div-container">
+            <h1>{{message}}</h1>
+        </div>
+        <br />
+        <br />
+    {% endfor %}
+    <div class = "div-container" style = "background-color: #c0bdbd; width: 75%;">
+        <div class = "div-container" style = "box-shadow:none">
+            <h1 class = "main-color" style="display:inline; position: relative;text-align: left">Username: </h1><h1 style="display:inline; word-wrap: break-word">{{user}}</h1>
+        </div>
+        <br />
+        <br />
+        <div class = "div-container" style = "box-shadow:none">
+            <h1 class = "main-color" style="display:inline; position: relative;text-align: left">Account Created on: </h1><h1 style="display:inline; word-wrap: break-word">{{user.date_joined | date:"F y, Y"}}</h1>
+        </div class = "div-container">
+        <br />
+        <br />
+        <div class = "div-container" style = "box-shadow:none">
+            <h1 class = "main-color" style="display:inline; position: relative;text-align: left">Email: </h1><h1 style="display:inline; word-wrap: break-word">{{user.email}}</h1>
+        </div>
+        <br />
+        <br />
+        <div class = "div-container" style = "box-shadow:none">
+            <h1 class = "main-color" style="display:inline; position: relative;text-align: left">Name: </h1><h1 style="display:inline; word-wrap: break-word">{{user.first_name}} {{user.last_name}}</h1>
+        </div>
+        <br />
+        <br />
+        <div class="div-container" style="box-shadow: none; width=50%">
+            <form method = "POST">
+                {% csrf_token %}
+                <h2 class = "main-color">Change Master Password</h2>
+
+                <p1 style="float: left">Master Password:</p1>
+                <input type="password" name = "password_field">
+
+                <p1 style="float: left">New Password:</p1>
+                <input type="password" name = "new_password1">
+
+                <p1 style="float: left">Repeat New Password:</p1>
+                <input type="password" name = "new_password2">
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <br />
+        <br /> 
+        <div class = "div-container" style = "box-shadow:none; width:25%">
+
+            <p1 style="text-align: center; font-size:30px; color: #9c0b0b"><a class='hover-color' href = "{% url 'delete' %}">Delete Account</a></p1>
+                
+        </div>
+        <br />
+        <br /> 
+    </div>
+
+{%endblock content%}

@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        {% block title %}
+        <title>Password Manager</title>
+        {% endblock  %}
+        <meta name="description" content="secure password manager.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://fonts.googleapis.com/css2?family=Oxanium&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'CSS/style.css'  %}">
+        <link rel="icon" type="image/png" href="{% static 'images/logo.png'  %}"/>
+    </head>
+    <body style="text-align: center; font-family: 'Oxanium';">
+        <header>
+            <ul class='u-list'>
+                <li>
+                
+                    <a href="{%url 'home'%}"><img src="{% static 'images/logo.png'  %}"
+                    style="width: 31.125px; height 40px; padding: 10px;float:left"></a> 
+                
+                </li>
+
+                {% if user.is_authenticated %}
+                    <li class ='list'><a href="{%url 'logout'%}">Logout</a></li>
+                    <li class ='list'><a href="{% url 'create' %}">Add Password</a></li>
+                    <li class ='list'><a href="{% url 'account' %}">Profile</a></li>
+                {% else %}
+                    <li class ='list'><a href="{%url 'login'%}">Login</a></li>
+                    <li class ='list'><a href="{%url 'register'%}">Register</a></li>
+                {% endif %}
+
+                
+                
+            </ul>
+        </header>
+        <main>
+            <section>
+                <br/>
+                {% block content %}
+                    {% for message in messages %}
+                        <div class="div-container">
+                            <h1>{{message}}</h1>
+                        </div>
+                        <br />
+                        <br />
+                    {% endfor %}
+                    {% if location %}
+                        {% for row in location %}
+                            <div class = "div-container">
+                                <h1 style="text-align: center; font-size:40px"><a class='link' href = "{% url 'view' row.id %}">{{row}}</a></h1>
+                            </div>
+                            <br/>
+                            <br/>
+                        {% endfor %}
+                    {% else %}
+                        <h1 style="text-align: center; font-size:40px"><a class='link' href = "{% url 'create' %}">Store Your First Password!</a></h1>
+                        
+                    {% endif %}
+                {% endblock content %}
+            </section>
+        </main>
+        <footer>
+
+        </footer>
+        <script src="" async defer></script>
+    </body>
+</html>
